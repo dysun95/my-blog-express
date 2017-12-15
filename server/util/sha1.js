@@ -3,13 +3,13 @@
  *@returns sha1加密后的值 
  */
 
-var crypto = require('crypto');
-var secret = 'sundengyu';
+var crypto = require('crypto')
+var secret = 'sundengyu'
 
 function sha1 (before) {
   return crypto.createHmac('sha1', secret)
               .update(before)
-              .digest('hex');
+              .digest('hex')
 }
 
-module.exports = sha1;
+module.exports = sha1

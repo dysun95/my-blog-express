@@ -1,5 +1,10 @@
 let searchUser = require('../db/search/user')
 
+/**
+ * @description 查询用户信息, 单条, 查询条件为name
+ * @param {Object} req 请求
+ * @param {Object} res 返回
+ */
 function getUser (req, res) {
   if (req.query && req.query.name) {
     let user = {
@@ -7,22 +12,34 @@ function getUser (req, res) {
     }
     searchUser(user)
       .then(result => {
-        res.json({
-          status: 200,
-          message: 'success',
-          data: result
-        })
+        if (result.length > 0) {
+          let {name, _id} = result[0]
+          res.json({
+            status: 200,
+            message: 'success',
+            data: {
+              name: name,
+              id: _id
+            }
+          })
+        } else {
+          res.json({
+            status: 4001,
+            message: '用户不存在',
+            data: {}
+          })
+        }
       })
       .catch(err => {
         res.json({
-          status: 401,
+          status: 5000,
           message: 'error',
           data: {}
         })
       })
   } else {
     res.json({
-      status: 401,
+      status: 4000,
       message: 'error',
       data: {}
     })
