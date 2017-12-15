@@ -1,4 +1,4 @@
-let dbConnect = require('../main');
+let dbConnect = require('../main')
 
 function searchUser (user) {
   return new Promise((resolve, reject) => {
@@ -10,6 +10,8 @@ function searchUser (user) {
           }
           resolve(result)
         })
+      }).catch(err => {
+        reject(err)
       })
     } else {
       reject()

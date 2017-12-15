@@ -9,8 +9,12 @@ function dbConnect (collectionName) {
       if (err) {
         reject(err);
       }
-      let collection = db.collection(collectionName);
-      resolve(collection);
+      db.collection(collectionName, (err, col) => {
+        if (err) {
+          reject(err)
+        }
+        resolve(col)
+      })
     });
   });
 }

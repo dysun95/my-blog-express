@@ -5,13 +5,21 @@ function getUser (req, res) {
     let user = {
       "name": req.query.name
     }
-    searchUser(user).then(result => {
-      res.json({
-        status: 200,
-        message: 'success',
-        data: result
+    searchUser(user)
+      .then(result => {
+        res.json({
+          status: 200,
+          message: 'success',
+          data: result
+        })
       })
-    })
+      .catch(err => {
+        res.json({
+          status: 401,
+          message: 'error',
+          data: {}
+        })
+      })
   } else {
     res.json({
       status: 401,
