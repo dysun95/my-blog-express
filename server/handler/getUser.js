@@ -1,4 +1,5 @@
 let searchUser = require('../db/search/user')
+let decodeToken = require('../util/token').decodeToken
 
 /**
  * @description 查询用户信息, 单条, 查询条件为name
@@ -7,6 +8,15 @@ let searchUser = require('../db/search/user')
  */
 function getUser (req, res) {
   if (req.query && req.query.name) {
+    // console.log(req.query)
+    // if (req.query.token) {
+    //   let puid = decodeToken(req.query.token)
+    //   if (puid && puid === req.query.puid) {
+    //     res.send(666)
+    //   } else {
+    //     res.send(233)
+    //   }
+    // }
     let user = {
       "name": req.query.name
     }

@@ -75,7 +75,7 @@ function register (req, res) {
     })
   } else {
     res.json({
-      stauts: 4004,
+      status: 4004,
       message: "用户名或密码为空",
       data: {}
     })

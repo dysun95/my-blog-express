@@ -1,5 +1,6 @@
 let searchUser = require('../db/search/user')
 let sha1 = require('../util/sha1')
+let encodeToken = require('../util/token').encodeToken
 
 function login (req, res) {
   let user = req.body
@@ -7,25 +8,28 @@ function login (req, res) {
     searchUser({"name": user.name}).then(result => {
       if (result && result.name && result.puid && result.passwd) {
         if (result.name === user.name && result.passwd === sha1(user.passwd)) { // 用户名、密码正确
+          let token = encodeToken(result.puid)
           res.cookie("puid", result.puid, { domain: '.dysun95.tk' ,path: '/', maxAge: 1000*60*60*24*2 })
+          // res.cookie("token", token, { domain: '.dysun95.tk' ,path: '/', maxAge: 1000*60*60*24*2 })
           res.json({
-            stauts: 200,
+            status: 200,
             message: "sucess",
             data: {
               name: result.name,
-              puid: result.puid
+              puid: result.puid,
+              token: token
             }
           })
         } else {
           res.json({
-            stauts: 4003,
+            status: 4003,
             message: "用户名或密码错误",
             data: {}
           })
         }
       } else {
         res.json({
-          stauts: 4003,
+          status: 4003,
           message: "用户名或密码错误",
           data: {}
         })
@@ -40,7 +44,7 @@ function login (req, res) {
     })
   } else {
     res.json({
-      stauts: 4004,
+      status: 4004,
       message: "用户名或密码为空",
       data: {}
     })

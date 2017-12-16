@@ -11,7 +11,6 @@ let whitelist = [
 
 // router中间件，可在api路由进来之后，执行此中操作，通过next再执行后续子路由
 router.use(function(req, res, next) {
-  console.log(req)
   if (whitelist.indexOf(req.get('origin')) !== -1) {
     res.header("Access-Control-Allow-Origin", req.get('origin'))
   }
