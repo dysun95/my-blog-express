@@ -4,7 +4,9 @@ let handler = require('../handler/index')
 
 let whitelist = [
   "http://localhost:8080",
-  "http://www.dysun95.tk"
+  "http://www.dysun95.tk",
+  "http://local.dysun95.tk",
+  "http://local.dysun95.tk:8080"
 ]
 
 // router中间件，可在api路由进来之后，执行此中操作，通过next再执行后续子路由

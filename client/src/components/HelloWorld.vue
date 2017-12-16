@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     getUser () {
-      axios.get('http://localhost:3000/api/get/user', {
+      axios.get('http://api.dysun95.tk/api/get/user', {
         params: {
           name: 'sun1'
         }
@@ -25,7 +25,7 @@ export default {
     login () {
       axios({
         method: 'post',
-        url: 'http://localhost:3000/api/login',
+        url: 'http://api.dysun95.tk/api/login',
         data: {
           name: 'sun4',
           passwd: '123321'
