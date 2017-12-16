@@ -7,7 +7,7 @@ function login (req, res) {
     searchUser({"name": user.name}).then(result => {
       if (result && result.name && result.puid && result.passwd) {
         if (result.name === user.name && result.passwd === sha1(user.passwd)) { // 用户名、密码正确
-          res.cookie("puid", result.puid, { path: '/', maxAge: 900000 })
+          res.cookie("puid", result.puid, { path: '/', maxAge: 1000*60*60*24*2 })
           res.json({
             stauts: 200,
             message: "sucess",
