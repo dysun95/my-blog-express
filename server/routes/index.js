@@ -1,11 +1,19 @@
-var express = require('express')
-var router = express.Router()
-var handler = require('../handler/index')
+let express = require('express')
+let router = express.Router()
+let handler = require('../handler/index')
+
+let whitelist = [
+  "http://localhost:8080",
+  "http://www.dysun95.tk"
+]
 
 // router中间件，可在api路由进来之后，执行此中操作，通过next再执行后续子路由
 router.use(function(req, res, next) {
-  // console.log(req.method, req.url)
-  // console.log(req.headers)
+  if (whitelist.indexOf(req.get('origin')) !== -1) {
+    res.header("Access-Control-Allow-Origin", req.get('origin'))
+  }
+  res.header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Authorization, Accept, X-Requested-With")
+  res.header("Access-Control-Allow-Credentials", "true")
   next()
 })
 
