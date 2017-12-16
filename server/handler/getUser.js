@@ -12,14 +12,14 @@ function getUser (req, res) {
     }
     searchUser(user)
       .then(result => {
-        if (result.length > 0) {
-          let {name, _id} = result[0]
+        if (result.name && result.puid) {
+          let {name, puid} = result
           res.json({
             status: 200,
             message: 'success',
             data: {
               name: name,
-              id: _id
+              puid: puid
             }
           })
         } else {

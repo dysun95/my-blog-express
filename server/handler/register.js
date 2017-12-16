@@ -12,7 +12,7 @@ function register (req, res) {
   let user = req.body
   if (user && user.name && user.passwd) {
     searchUser({name: user.name}).then(result => { // 根据name查询用户
-      if (result && result.length >= 1 && result[0].name === user.name) {
+      if (result && result.name === user.name) {
         res.json({
           status: 4002,
           message: "用户名已存在",
@@ -24,7 +24,7 @@ function register (req, res) {
         addUser(user).then(result => {
           if (result.result && result.result.ok === 1) { // 用户信息插入成功
             let userNew = result.ops[0]
-            editUser({"name": userNew.name}, {"id": userNew._id.toString()}).then(result => { // 使用mongodb的_id作为唯一puid,更新用户信息
+            editUser({"name": userNew.name}, {"puid": userNew._id.toString()}).then(result => { // 使用mongodb的_id作为唯一puid,更新用户信息
               if (result.result.ok === 1) {
                 res.json({
                   status: 200,
@@ -72,6 +72,12 @@ function register (req, res) {
         data: {}
       })
       console.log(err)
+    })
+  } else {
+    res.json({
+      stauts: 4004,
+      message: "用户名或密码为空",
+      data: {}
     })
   }
 }

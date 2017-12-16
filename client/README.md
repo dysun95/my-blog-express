@@ -1,4 +1,4 @@
-# my-site
+# client
 
 > A Vue.js project
 
