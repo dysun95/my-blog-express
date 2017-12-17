@@ -2,29 +2,6 @@ let readBlogList = require('../db/read/blogList')
 let checkToken = require('../util/checkToken')
 
 function getBlogList(req, res) {
-  // 先判断token
-  let tokenStatus = checkToken(req)
-  if (tokenStatus === 200) {
-    // token验证成功
-    success(req, res)
-  } else if (tokenStatus === 4006) {
-    // token失效
-    res.json({
-      status: 4006,
-      message: 'token失效',
-      data: {}
-    })
-  } else if (tokenStatus === 4005) {
-    // token或puid不存在
-    res.json({
-      status: 4005,
-      message: 'token或puid不存在',
-      data: {}
-    })
-  }
-}
-
-function success(req, res) {
   let puid = req.cookies.puid || req.query.puid || ''
   if (puid) {
     let blog = {

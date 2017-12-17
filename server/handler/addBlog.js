@@ -3,28 +3,6 @@ let updateBlog = require('../db/update/blog')
 let checkToken = require('../util/checkToken')
 
 function addBlog(req, res) {
-  let tokenStatus = checkToken(req)
-  if (tokenStatus === 200) {
-      // token验证成功
-      success(req, res)
-  } else if (tokenStatus === 4006) {
-    // token失效
-    res.json({
-      status: 4006,
-      message: 'token失效',
-      data: {}
-    })
-  } else if (tokenStatus === 4005) {
-    // token或puid不存在
-    res.json({
-      status: 4005,
-      message: 'token或puid不存在',
-      data: {}
-    })
-  }
-}
-
-function success (req, res) {
   let {title, content} = req.body
   let blog = {
     title: title,
