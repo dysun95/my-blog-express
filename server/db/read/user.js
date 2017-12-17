@@ -1,15 +1,17 @@
-let dbConnect = require('../main');
+let dbConnect = require('../main')
 
-function addUser (user) {
+function readUser (user) {
   return new Promise((resolve, reject) => {
-    if (user && user.name && user.passwd) {
+    if (user) {
       dbConnect('user').then(collection => {
-        collection.insert(user, (err, result) => {
+        collection.findOne(user, (err, result) => {
           if (err) {
             reject(err)
           }
           resolve(result)
         })
+      }).catch(err => {
+        reject(err)
       })
     } else {
       reject()
@@ -17,4 +19,4 @@ function addUser (user) {
   })
 }
 
-module.exports = addUser
+module.exports = readUser

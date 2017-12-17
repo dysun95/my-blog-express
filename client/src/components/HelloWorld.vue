@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
-    <button @click="getUser">获取</button>
-    <button @click="login">登录</button>
+    <button @click="getUser">get</button>
+    <button @click="login">login</button>
   </div>
 </template>
 
@@ -11,7 +11,8 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      domain: 'http://localhost:3000'
+      domain: 'http://local.dysun95.tk:3000'
+      // domain: 'http://api.dysun95.tk'
     }
   },
   methods: {
@@ -20,8 +21,7 @@ export default {
         method: 'get',
         url: this.domain + '/api/get/user',
         params: {
-          name: 'sun2',
-          puid: '5a34b7c80bf4fb1880b75ddc'
+          name: 'sun5'
         },
         withCredentials: true
       })
@@ -31,8 +31,8 @@ export default {
         method: 'post',
         url: this.domain + '/api/login',
         data: {
-          name: 'sun2',
-          passwd: '123321'
+          name: 'sun5',
+          passwd: '123123'
         },
         headers: {
           'Content-Type': 'application/json'

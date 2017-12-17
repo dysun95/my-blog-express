@@ -1,17 +1,12 @@
-let readUser = require('../db/read/user')
+let readBlogList = require('../db/read/blogList')
 let checkToken = require('../util/checkToken')
 
-/**
- * @description 查询用户信息, 单条, 查询条件为name
- * @param {Object} req 请求
- * @param {Object} res 返回
- */
-function getUser (req, res) {
+function getBlogList(req, res) {
   // 先判断token
   let tokenStatus = checkToken(req)
   if (tokenStatus === 200) {
-      // token验证成功
-      success(req, res)
+    // token验证成功
+    success(req, res)
   } else if (tokenStatus === 4006) {
     // token失效
     res.json({
@@ -29,27 +24,39 @@ function getUser (req, res) {
   }
 }
 
-function success (req, res) {
-  if (req.query && req.query.name) {
-    let user = {
-      "name": req.query.name
+function success(req, res) {
+  let puid = req.cookies.puid || req.query.puid || ''
+  if (puid) {
+    let blog = {
+      "author": puid
     }
-    readUser(user)
+    readBlogList(blog)
       .then(result => {
-        if (result.name && result.puid) {
-          let {name, puid} = result
+        if (result && result.length >= 0) {
+          let blogList = []
+          let length = result.length
+          for (let i = 0; i < length; i++) {
+            let {title, content, author, createTime, blogID} = result[i]
+            blogList.push({
+              title: title,
+              content: content,
+              author: author,
+              createTime: createTime,
+              blogID: blogID
+            })
+          }
           res.json({
             status: 200,
             message: 'success',
             data: {
-              name: name,
-              puid: puid
+              list: blogList,
+              total: length
             }
           })
         } else {
           res.json({
-            status: 4001,
-            message: '用户不存在',
+            status: 4008,
+            message: '查询文章出错',
             data: {}
           })
         }
@@ -70,4 +77,4 @@ function success (req, res) {
   }
 }
 
-module.exports = getUser;
+module.exports = getBlogList

@@ -1,10 +1,10 @@
 let dbConnect = require('../main')
 
-function editUser(user, userInfo) {
+function readBlog (blog) {
   return new Promise((resolve, reject) => {
-    if (user && user.name) {
-      dbConnect('user').then(collection => {
-        collection.updateOne(user, {$set: userInfo}, (err, result) => {
+    if (blog) {
+      dbConnect('blog').then(collection => {
+        collection.findOne(blog, (err, result) => {
           if (err) {
             reject(err)
           }
@@ -19,4 +19,4 @@ function editUser(user, userInfo) {
   })
 }
 
-module.exports = editUser
+module.exports = readBlog
