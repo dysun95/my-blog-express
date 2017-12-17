@@ -1,5 +1,5 @@
 let searchUser = require('../db/search/user')
-let decodeToken = require('../util/token').decodeToken
+let checkToken = require('../util/checkToken')
 
 /**
  * @description 查询用户信息, 单条, 查询条件为name
@@ -7,16 +7,30 @@ let decodeToken = require('../util/token').decodeToken
  * @param {Object} res 返回
  */
 function getUser (req, res) {
+  // 先判断token
+  let tokenStatus = checkToken(req)
+  if (tokenStatus === 200) {
+      // token验证成功
+      sucess(req, res)
+  } else if (tokenStatus === 4006) {
+    // token失效
+    res.json({
+      status: 4006,
+      message: 'token失效',
+      data: {}
+    })
+  } else if (tokenStatus === 4005) {
+    // token或puid不存在
+    res.json({
+      status: 4005,
+      message: 'token或puid不存在',
+      data: {}
+    })
+  }
+}
+
+function sucess (req, res) {
   if (req.query && req.query.name) {
-    // console.log(req.query)
-    // if (req.query.token) {
-    //   let puid = decodeToken(req.query.token)
-    //   if (puid && puid === req.query.puid) {
-    //     res.send(666)
-    //   } else {
-    //     res.send(233)
-    //   }
-    // }
     let user = {
       "name": req.query.name
     }

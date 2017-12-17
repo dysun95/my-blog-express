@@ -11,23 +11,27 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      domain: 'http://localhost:3000'
     }
   },
   methods: {
     getUser () {
-      axios.get('http://api.dysun95.tk/api/get/user', {
+      axios({
+        method: 'get',
+        url: this.domain + '/api/get/user',
         params: {
-          name: 'sun1'
-        }
+          name: 'sun2',
+          puid: '5a34b7c80bf4fb1880b75ddc'
+        },
+        withCredentials: true
       })
     },
     login () {
       axios({
         method: 'post',
-        url: 'http://api.dysun95.tk/api/login',
+        url: this.domain + '/api/login',
         data: {
-          name: 'sun4',
+          name: 'sun2',
           passwd: '123321'
         },
         headers: {
