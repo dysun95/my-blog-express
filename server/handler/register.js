@@ -4,7 +4,7 @@ let updateUser = require('../db/update/user')
 let sha1 = require('../util/sha1')
 
 /**
- * @description 注册用户，存储用户信息，相同名字则不通过
+ * 注册用户，存储用户信息，相同名字则不通过
  * @param {Object} req 请求
  * @param {Object} res 返回
  */

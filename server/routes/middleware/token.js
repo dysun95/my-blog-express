@@ -1,5 +1,11 @@
 const checkToken = require('../../util/checkToken')
 
+/**
+ * 验证token的中间件
+ * @param {Object} req - 请求对象
+ * @param {Object} res - 响应对象
+ * @param {Function} next - 路由下一步
+ */
 function token (req, res, next) {
   let tokenStatus = checkToken(req)
   if (tokenStatus === 200) {

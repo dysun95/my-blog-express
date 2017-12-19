@@ -2,6 +2,11 @@ let createBlog = require('../db/create/blog')
 let updateBlog = require('../db/update/blog')
 let checkToken = require('../util/checkToken')
 
+/**
+ * 增加文章，生成时间戳、blogID和作者
+ * @param {Object} req 
+ * @param {Object} res 
+ */
 function addBlog(req, res) {
   let {title, content} = req.body
   let blog = {

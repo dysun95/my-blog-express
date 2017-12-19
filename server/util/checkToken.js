@@ -1,8 +1,10 @@
 let decodeToken = require('./token').decodeToken
 
 /**
- * @description 根据request中的token和puid判断是否为有效用户
- * @param {Object} req 请求
+ * 根据request中的token和puid判断是否为有效用户
+ * @param {Object} req - 请求对象
+ * @param {String} [req.cookies.token] - cookie带token
+ * @param {String} [req.query.token] - url参数带token
  */
 function checkToken(req) {
     let token = req.cookies.token || req.query.token || ''
