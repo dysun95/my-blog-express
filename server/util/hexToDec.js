@@ -1,6 +1,5 @@
-module.exports = function (str) {
+function hexToDec (str) {
   str = str.replace(/([a-f])/g, ($0, $1) => {
-    console.log($1)
     let temp = null
     switch ($1) {
       case 'a':
@@ -28,3 +27,5 @@ module.exports = function (str) {
   })
   return str
 }
+
+module.exports = hexToDec

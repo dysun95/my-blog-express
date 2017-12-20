@@ -1,5 +1,5 @@
-let readBlogList = require('../db/read/blogList')
-let checkToken = require('../util/checkToken')
+const readBlogList = require('../db/read/blogList')
+const resHandler = require('../util/response')
 
 function getBlogList(req, res) {
   let puid = req.cookies.puid || req.query.puid || ''
@@ -31,26 +31,15 @@ function getBlogList(req, res) {
             }
           })
         } else {
-          res.json({
-            status: 4008,
-            message: '查询文章出错',
-            data: {}
-          })
+          resHandler(res, 4008)
         }
       })
       .catch(err => {
-        res.json({
-          status: 5000,
-          message: 'error',
-          data: {}
-        })
+        resHandler(res, 5000)
+        console.log(err)
       })
   } else {
-    res.json({
-      status: 4000,
-      message: 'error',
-      data: {}
-    })
+    resHandler(res, 4000)
   }
 }
 

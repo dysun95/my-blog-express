@@ -12,4 +12,11 @@ function sha1 (before) {
               .digest('hex')
 }
 
-module.exports = sha1
+function md5 (before) {
+  return crypto.createHash('md5')
+              .update(before)
+              .digest('hex')
+}
+
+module.exports.sha1 = sha1
+module.exports.md5 = md5

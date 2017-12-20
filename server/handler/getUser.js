@@ -1,5 +1,5 @@
-let readUser = require('../db/read/user')
-let checkToken = require('../util/checkToken')
+const readUser = require('../db/read/user')
+const checkToken = require('../util/checkToken')
 
 /**
  * @description 查询用户信息, 单条, 查询条件为name

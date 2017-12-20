@@ -1,13 +1,13 @@
-let readUser = require('../db/read/user')
-let sha1 = require('../util/sha1')
-let encodeToken = require('../util/token').encodeToken
+const readUser = require('../db/read/user')
+const encrypt = require('../util/encrypt')
+const encodeToken = require('../util/token').encodeToken
 
 function login (req, res) {
   let user = req.body
   if (user && user.name && user.passwd) {
     readUser({"name": user.name}).then(result => {
       if (result && result.name && result.puid && result.passwd) {
-        if (result.name === user.name && result.passwd === sha1(user.passwd)) {
+        if (result.name === user.name && result.passwd === encrypt.sha1(user.passwd)) {
           // 用户名、密码正确
           let token = encodeToken(result.puid)
           res.cookie("puid", result.puid, { domain: '.dysun95.tk', path: '/', maxAge: 1000*60*60*24*2})

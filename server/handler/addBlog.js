@@ -1,6 +1,7 @@
-let createBlog = require('../db/create/blog')
-let updateBlog = require('../db/update/blog')
-let checkToken = require('../util/checkToken')
+const createBlog = require('../db/create/blog')
+const updateBlog = require('../db/update/blog')
+const checkToken = require('../util/checkToken')
+const resHandler = require('../util/response')
 
 /**
  * 增加文章，生成时间戳、blogID和作者
@@ -32,41 +33,21 @@ function addBlog(req, res) {
               }
             })
           } else {
-            res.json({
-              status: 5000,
-              message: "error",
-              data: {}
-            })
+            resHandler(res, 5000)
           }
         }).catch(err => {
-          res.json({
-            status: 5000,
-            message: "error",
-            data: {}
-          })
+          resHandler(res, 5000)
           console.log(err)
         })
       } else {
-        res.json({
-          status: 5000,
-          message: "error",
-          data: {}
-        })
+        resHandler(res, 5000)
       }
     }).catch(err => {
-      res.json({
-        status: 5000,
-        message: "error",
-        data: {}
-      })
+      resHandler(res, 5000)
       console.log(err)
     })
   } else {
-    res.json({
-      status: 4007,
-      message: '缺少文章参数',
-      data: {}
-    })
+    resHandler(res, 4007)
   }
 }
 
