@@ -1,10 +1,18 @@
-function response(res, status) {
+function response(res, status, data) {
   if (status) {
-    let errMsg = statusDict[status] || "error"
-    res.send({
-      status: status,
-      message: errMsg
-    })
+    if (status === 200) {
+      res.json({
+        status: 200,
+        message: 'success',
+        data: data
+      })
+    } else {
+      let errMsg = statusDict[status] || "error"
+      res.json({
+        status: status,
+        message: errMsg
+      })
+    }
   }
 }
 
@@ -19,6 +27,8 @@ const statusDict = {
   4007: '缺少文章参数',
   4008: '查询文章出错',
   4009: '缺少puid参数',
+  4010: '缺少blogID参数',
+  4011: '文章不存在',
   5000: '数据库错误'
 }
 

@@ -21,16 +21,13 @@ function addBlog(req, res) {
     createBlog(blog).then(result => {
       if (result.result && result.result.ok === 1) {
         let blogNew = result.ops[0]
-        updateBlog({"_id": blogNew._id}, {"blogID": blogNew._id.toString()}).then(result => {
+        let blogID = blogNew._id.toString()
+        updateBlog({"_id": blogNew._id}, {"blogID": blogID}).then(result => {
           if (result.result.ok === 1) {
-            res.json({
-              status: 200,
-              message: "sucess",
-              data: {
-                blogID: blogNew._id.toString(),
-                title: blogNew.title,
-                author: blogNew.author
-              }
+            resHandler(res, 200, {
+              blogID: blogID,
+              title: blogNew.title,
+              author: blogNew.author
             })
           } else {
             resHandler(res, 5000)

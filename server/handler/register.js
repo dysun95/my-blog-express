@@ -26,13 +26,9 @@ function register (req, res) {
             let puid = hexToDec(encrypt.md5(userNew._id.toString())).slice(0, 9)  // 数据库id使用md5加密后取前10位，将a-f变为0-5, 只是为了更随机一些, 并不能保证不唯一
             updateUser({"_id": userNew._id}, {"puid": puid}).then(result => {
               if (result.result.ok === 1) {
-                res.json({
-                  status: 200,
-                  message: "sucess",
-                  data: {
-                    id: puid,
-                    name: userNew.name
-                  }
+                resHandler(res, 200, {
+                  id: puid,
+                  name: userNew.name
                 })
               } else {
                 // 用户id编辑失败

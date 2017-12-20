@@ -3,5 +3,6 @@ module.exports = {
     login: require('./login'),
     register: require('./register'),
     addBlog: require('./addBlog'),
-    getBlogList: require('./getBlogList')
+    getBlogList: require('./getBlogList'),
+    getBlog: require('./getBlog')
 }

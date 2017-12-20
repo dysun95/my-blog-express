@@ -13,22 +13,12 @@ function getBlogList(req, res) {
           let blogList = []
           let length = result.length
           for (let i = 0; i < length; i++) {
-            let {title, content, author, createTime, blogID} = result[i]
-            blogList.push({
-              title: title,
-              content: content,
-              author: author,
-              createTime: createTime,
-              blogID: blogID
-            })
+            let {_id, ...blog} = result[i]
+            blogList.push(blog)
           }
-          res.json({
-            status: 200,
-            message: 'success',
-            data: {
-              list: blogList,
-              total: length
-            }
+          resHandler(res, 200, {
+            list: blogList,
+            total: length
           })
         } else {
           resHandler(res, 4008)

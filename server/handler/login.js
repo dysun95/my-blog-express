@@ -1,6 +1,7 @@
 const readUser = require('../db/read/user')
 const encrypt = require('../util/encrypt')
 const encodeToken = require('../util/token').encodeToken
+const resHandler = require('../util/response')
 
 function login (req, res) {
   let user = req.body
@@ -12,43 +13,24 @@ function login (req, res) {
           let token = encodeToken(result.puid)
           res.cookie("puid", result.puid, { domain: '.dysun95.tk', path: '/', maxAge: 1000*60*60*24*2})
           res.cookie("token", token, { domain: '.dysun95.tk' ,path: '/', maxAge: 1000*60*60*24*2, httpOnly: true})
-          res.json({
-            status: 200,
-            message: "sucess",
-            data: {
-              name: result.name,
-              puid: result.puid
-            }
+          resHandler(res, 200, {
+            name: result.name,
+            puid: result.puid
           })
         } else {
           // 用户名/密码错误
-          res.json({
-            status: 4003,
-            message: "用户名或密码错误",
-            data: {}
-          })
+          resHandler(res, 4003)
         }
       } else {
-        res.json({
-          status: 4003,
-          message: "用户名或密码错误",
-          data: {}
-        })
+        // 未查到此用户
+        resHandler(res, 4001)
       }
     }).catch(err => {
-      res.json({
-        status: 5000,
-        message: "error",
-        data: {}
-      })
+      resHandler(res, 5000)
       console.log(err)
     })
   } else {
-    res.json({
-      status: 4004,
-      message: "用户名或密码为空",
-      data: {}
-    })
+    resHandler(res, 4004)
   }
 }
 
