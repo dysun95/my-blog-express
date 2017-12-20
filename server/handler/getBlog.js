@@ -2,7 +2,7 @@ const readBlog = require('../db/read/blog')
 const resHandler = require('../util/response')
 
 function getBlog (req, res) {
-  let puid = req.cookies.puid || req.query.puid || ''
+  let puid = req.cookies.puid || req.query.puid || req.body.puid || ''
   if (puid) {
     let blogID = req.query.blogID
     if (blogID) {

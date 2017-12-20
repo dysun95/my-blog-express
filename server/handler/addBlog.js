@@ -1,6 +1,5 @@
 const createBlog = require('../db/create/blog')
 const updateBlog = require('../db/update/blog')
-const checkToken = require('../util/checkToken')
 const resHandler = require('../util/response')
 
 /**
@@ -14,7 +13,7 @@ function addBlog(req, res) {
     title: title,
     content: content
   }
-  let puid = req.cookies.puid || req.query.puid || ''
+  let puid = req.cookies.puid || req.query.puid || req.body.puid || ''
   blog.author = puid
   blog.createTime = Date.now()
   if (blog && blog.title && blog.content && blog.author) {

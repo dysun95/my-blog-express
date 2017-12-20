@@ -2,7 +2,7 @@ let dbConnect = require('../main')
 
 function updateBlog(blog, blogInfo) {
   return new Promise((resolve, reject) => {
-    if (blog && blog._id) {
+    if (blog && (blog._id || blog.blogID)) {
       dbConnect('blog').then(collection => {
         collection.updateOne(blog, {$set: blogInfo}, (err, result) => {
           if (err) {

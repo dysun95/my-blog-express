@@ -2,7 +2,7 @@ const readBlogList = require('../db/read/blogList')
 const resHandler = require('../util/response')
 
 function getBlogList(req, res) {
-  let puid = req.cookies.puid || req.query.puid || ''
+  let puid = req.cookies.puid || req.query.puid || req.body.puid || ''
   if (puid) {
     let blog = {
       "author": puid

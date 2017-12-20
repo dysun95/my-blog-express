@@ -7,8 +7,8 @@ let decodeToken = require('./token').decodeToken
  * @param {String} [req.query.token] - url参数带token
  */
 function checkToken(req) {
-    let token = req.cookies.token || req.query.token || ''
-    let puid = req.cookies.puid || req.query.puid || ''
+    let token = req.cookies.token || req.query.token || req.body.token || ''
+    let puid = req.cookies.puid || req.query.puid || req.body.puid || ''
     if (token && puid) {
       let puidInToken = decodeToken(token)
       if (puidInToken === puid) {

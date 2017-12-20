@@ -62,6 +62,10 @@ router.get('/get/blog', token, function (req, res) {
   handler.getBlog(req, res)
 })
 
+router.post('/edit/blog', token, function (req, res) {
+  handler.editBlog(req, res)
+})
+
 router.post('/upload/image', token)
 router.post('/upload/image', upload.single('image'), function (req, res) {
   res.json({
